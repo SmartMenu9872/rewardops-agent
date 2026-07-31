@@ -1,0 +1,41 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "rewardops-agent"
+version = "0.1.0"
+description = "A cross-channel evidence agent that verifies software rewards before developers spend time on them."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "SmartMenu9872" }]
+dependencies = [
+  "caspian-sdk==0.6.1",
+  "httpx>=0.28,<1",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.4,<9",
+  "ruff>=0.12,<1",
+]
+
+[project.scripts]
+rewardops = "rewardops.cli:main"
+rewardops-agent = "rewardops.caspian_agent:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["rewardops"]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
