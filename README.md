@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="docs/rewardops-banner.svg" alt="RewardOps — evidence before effort" width="920" />
+</div>
+
 # RewardOps
 
 **Evidence before effort.**
@@ -113,6 +117,10 @@ pytest
 
 Tests cover URL safety, reward extraction, the closed-source hard stop, competition
 penalties, watchlist persistence, and channel-independent command handling.
+
+The hackathon submission draft and live recording plan are in
+[`docs/DEVPOST_SUBMISSION.md`](docs/DEVPOST_SUBMISSION.md) and
+[`docs/DEMO_SCRIPT.md`](docs/DEMO_SCRIPT.md).
 
 ## Responsible use
 

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360" role="img" aria-labelledby="title desc">
+  <title id="title">RewardOps — Evidence Before Effort</title>
+  <desc id="desc">A dark blue banner with live-source evidence cards flowing into a verified decision.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07111f"/>
+      <stop offset=".58" stop-color="#102643"/>
+      <stop offset="1" stop-color="#153c4d"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#3dd6b3"/>
+      <stop offset="1" stop-color="#8ef0d5"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="12" stdDeviation="18" flood-color="#000" flood-opacity=".35"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="360" rx="28" fill="url(#bg)"/>
+  <circle cx="1080" cy="38" r="180" fill="#3dd6b3" opacity=".07"/>
+  <circle cx="102" cy="350" r="210" fill="#4985ff" opacity=".08"/>
+
+  <g transform="translate(70 74)">
+    <rect width="64" height="64" rx="18" fill="url(#accent)"/>
+    <path d="M18 35l10 10 20-25" fill="none" stroke="#07111f" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="158" y="116" fill="#f4fbff" font-family="Inter,Segoe UI,sans-serif" font-size="52" font-weight="750">RewardOps</text>
+  <text x="72" y="183" fill="#b7cad9" font-family="Inter,Segoe UI,sans-serif" font-size="26">Evidence before effort.</text>
+  <text x="72" y="230" fill="#edf7fb" font-family="Inter,Segoe UI,sans-serif" font-size="22">Verify the source. Measure the crowd. Explain the decision.</text>
+  <rect x="72" y="274" width="315" height="42" rx="21" fill="#15314a" stroke="#31516b"/>
+  <circle cx="99" cy="295" r="7" fill="#3dd6b3"/>
+  <text x="119" y="302" fill="#cbe0eb" font-family="Inter,Segoe UI,sans-serif" font-size="18">One handler · every channel</text>
+
+  <g transform="translate(730 48)" filter="url(#shadow)">
+    <rect width="395" height="264" rx="24" fill="#0d1a2a" stroke="#29445c"/>
+    <text x="28" y="44" fill="#7e99ac" font-family="Inter,Segoe UI,sans-serif" font-size="15" font-weight="700" letter-spacing="1.4">LIVE SOURCE CHECK</text>
+    <rect x="28" y="66" width="339" height="58" rx="14" fill="#142a3d"/>
+    <circle cx="55" cy="95" r="9" fill="#ff637d"/>
+    <text x="78" y="90" fill="#f0f7fb" font-family="Inter,Segoe UI,sans-serif" font-size="17" font-weight="650">$1,000 reward</text>
+    <text x="78" y="111" fill="#8fa8b8" font-family="Inter,Segoe UI,sans-serif" font-size="14">Source state: closed</text>
+    <path d="M198 147v28" stroke="#49677c" stroke-width="2"/>
+    <path d="M190 168l8 8 8-8" fill="none" stroke="#49677c" stroke-width="2"/>
+    <rect x="28" y="190" width="339" height="48" rx="14" fill="#341c28" stroke="#743448"/>
+    <text x="50" y="220" fill="#ff9caf" font-family="Inter,Segoe UI,sans-serif" font-size="20" font-weight="750">SKIP · 0/100</text>
+    <text x="259" y="219" fill="#d1a8b3" font-family="Inter,Segoe UI,sans-serif" font-size="14">hard stop</text>
+  </g>
+</svg>
