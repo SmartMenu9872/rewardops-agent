@@ -40,3 +40,15 @@ def test_help_works_from_any_greeting(tmp_path) -> None:
     text, blocks = service.handle("hello")
     assert "same command handler" in text
     assert blocks is None
+
+
+def test_email_reply_history_is_ignored(tmp_path) -> None:
+    service = RewardOpsService(FakeVerifier(), OpportunityStore(tmp_path / "test.sqlite3"))
+    text, blocks = service.handle(
+        "scan https://github.com/acme/widget/issues/1\r\n\r\n"
+        "On Thursday, agent wrote:\r\n"
+        "> Previous instructions\r\n"
+        "> More quoted content"
+    )
+    assert text.startswith("🟢 PURSUE")
+    assert blocks is not None

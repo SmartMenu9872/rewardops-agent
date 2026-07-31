@@ -8,9 +8,9 @@ issue and it verifies the live source, extracts reward evidence, counts visible
 attempts, applies hard-stop risk gates, and returns an explainable pursue/research/
 skip decision.
 
-The same Caspian `on_message` handler serves every connected channel. The current
-hackathon deployment uses email plus Discord; no handler is duplicated and no
-channel-specific business logic exists.
+The same Caspian `on_message` handler serves every connected channel. The
+hackathon deployment is designed for email plus Discord; no handler is duplicated
+and no channel-specific business logic exists.
 
 ## Why this exists
 
@@ -32,6 +32,8 @@ stale cached data.
 - **Persistent watchlist:** `watch` saves evidence to SQLite; `digest` ranks it.
 - **One Caspian handler:** email and Discord route through exactly the same command
   and response path, including rich cards and clean text fallbacks.
+- **Reply-safe email parsing:** quoted reply history is removed before a command is
+  evaluated, so email clients cannot accidentally turn one command into many.
 
 ## Commands
 
@@ -117,4 +119,3 @@ penalties, watchlist persistence, and channel-independent command handling.
 RewardOps only reads public issue metadata. It does not contact maintainers,
 submit claims, scrape private data, or perform security testing. A high score is
 evidence for human review, never a guarantee of payment.
-

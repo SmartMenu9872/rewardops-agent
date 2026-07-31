@@ -25,7 +25,7 @@ class RewardOpsService:
         self.store = store
 
     def handle(self, raw_text: str | None) -> tuple[str, list[dict] | None]:
-        text = (raw_text or "").strip()
+        text = _extract_command(raw_text)
         if not text:
             return HELP_TEXT, None
         try:
@@ -57,3 +57,13 @@ class RewardOpsService:
             self.store.save(opportunity)
         prefix = "Saved to digest.\n\n" if command == "watch" else ""
         return prefix + opportunity_text(opportunity), opportunity_blocks(opportunity)
+
+
+def _extract_command(raw_text: str | None) -> str:
+    """Use the authored line and ignore reply history appended by email clients."""
+
+    for line in (raw_text or "").splitlines():
+        candidate = line.strip()
+        if candidate and not candidate.startswith(">"):
+            return candidate
+    return ""
