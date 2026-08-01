@@ -13,7 +13,7 @@ attempts, applies hard-stop risk gates, and returns an explainable pursue/resear
 skip decision.
 
 The same Caspian `on_message` handler serves every connected channel. The
-hackathon deployment is designed for email plus Discord; no handler is duplicated
+hackathon deployment is designed for email plus Slack; no handler is duplicated
 and no channel-specific business logic exists.
 
 ## Why this exists
@@ -34,7 +34,7 @@ stale cached data.
   reduce the score.
 - **Explainable decisions:** every score includes positive signals and risk flags.
 - **Persistent watchlist:** `watch` saves evidence to SQLite; `digest` ranks it.
-- **One Caspian handler:** email and Discord route through exactly the same command
+- **One Caspian handler:** email and Slack route through exactly the same command
   and response path, including rich cards and clean text fallbacks.
 - **Reply-safe email parsing:** quoted reply history is removed before a command is
   evaluated, so email clients cannot accidentally turn one command into many.
@@ -73,10 +73,10 @@ Create a Caspian project and connect two channels:
 pip install caspian-cli
 caspian init
 caspian connect email
-caspian connect discord
+caspian connect slack
 ```
 
-Authorize the returned Discord link, then start the one-handler agent:
+Authorize the returned Slack link, then start the one-handler agent:
 
 ```bash
 rewardops-agent
@@ -101,7 +101,7 @@ mode is the core demo.
 ```text
 Email ─────┐
            ├─ Caspian normalized message ─ one handler ─ evidence verifier
-Discord ───┘                                      │
+Slack ──────┘                                     │
                                                   ├─ live GitHub API
                                                   ├─ scoring + risk gates
                                                   └─ SQLite watchlist
