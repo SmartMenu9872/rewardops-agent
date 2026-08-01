@@ -8,6 +8,7 @@ import pytest
 from rewardops.github import (
     GitHubVerifier,
     UnsupportedOpportunity,
+    extract_non_usd_reward_evidence,
     extract_reward_amounts,
     parse_github_issue_url,
 )
@@ -29,6 +30,21 @@ def test_extract_reward_amounts_handles_common_bounty_formats() -> None:
     )
     assert amounts == [100.0, 350.0, 25.5]
     assert len(evidence) == 3
+
+
+def test_token_denominated_rewards_are_not_presented_as_usd() -> None:
+    amounts, evidence = extract_reward_amounts(
+        "[50 MRG] documentation bounty\n"
+        "[BOUNTY: 5 RTC] fix the install script\n"
+        "Reward: 150 credits\n"
+        "Cash reward: $20 after review"
+    )
+
+    assert amounts == [20.0]
+    assert evidence == ["Cash reward: $20 after review"]
+    assert extract_non_usd_reward_evidence(
+        "[50 MRG] documentation bounty\n[BOUNTY: 5 RTC] fix the install script"
+    ) == ["[50 MRG] documentation bounty", "[BOUNTY: 5 RTC] fix the install script"]
 
 
 def test_live_verifier_hard_stops_closed_issue() -> None:

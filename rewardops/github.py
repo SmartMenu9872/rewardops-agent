@@ -23,6 +23,11 @@ MONEY_PATTERNS = (
         re.I,
     ),
 )
+NON_USD_TOKEN_PATTERN = re.compile(
+    r"\b\d[\d,]*(?:\.\d{1,8})?\s*"
+    r"(?:MRG|RTC|DCR|XMR|BTC|ETH|SOL|ARROW|NIGHT|POINTS?|CREDITS?)\b",
+    re.I,
+)
 ATTEMPT_PATTERN = re.compile(
     r"(?:/attempt|/claim|i(?:'| a)?m working on|i would like to work|opened (?:a )?pr)",
     re.I,
@@ -76,6 +81,7 @@ class GitHubVerifier:
         comment_texts = [str(comment.get("body") or "") for comment in comments]
         evidence_text = "\n".join([issue.get("title") or "", body, *comment_texts])
         amounts, evidence = extract_reward_amounts(evidence_text)
+        token_reward_evidence = extract_non_usd_reward_evidence(evidence_text)
         competitor_count = sum(bool(ATTEMPT_PATTERN.search(text)) for text in comment_texts)
         labels = [
             label.get("name", "") for label in issue.get("labels", []) if isinstance(label, dict)
@@ -103,6 +109,8 @@ class GitHubVerifier:
             risk_flags.append("discussion is locked")
         if amounts and max(amounts) > 100_000:
             risk_flags.append("reward amount looks implausible and needs manual confirmation")
+        if token_reward_evidence:
+            risk_flags.append("reward uses non-USD units; conversion evidence is required")
 
         updated_at = _parse_timestamp(issue["updated_at"])
         opportunity = Opportunity(
@@ -123,6 +131,7 @@ class GitHubVerifier:
                 "issue_number": issue_number,
                 "comment_count": issue.get("comments", len(comments)),
                 "labels": labels,
+                "non_usd_reward_evidence": token_reward_evidence[:5],
             },
         )
         return score_opportunity(opportunity)
@@ -150,6 +159,8 @@ def extract_reward_amounts(text: str) -> tuple[list[float], list[str]]:
     amounts: list[float] = []
     evidence: list[str] = []
     for line in text.splitlines():
+        if NON_USD_TOKEN_PATTERN.search(line):
+            continue
         for pattern in MONEY_PATTERNS:
             matches = list(pattern.finditer(line))
             if not matches:
@@ -166,6 +177,17 @@ def extract_reward_amounts(text: str) -> tuple[list[float], list[str]]:
             # for each line so "/bounty 100" is not counted twice.
             break
     return amounts, evidence
+
+
+def extract_non_usd_reward_evidence(text: str) -> list[str]:
+    evidence: list[str] = []
+    for line in text.splitlines():
+        if not NON_USD_TOKEN_PATTERN.search(line):
+            continue
+        compact = " ".join(line.strip().split())
+        if compact and compact not in evidence:
+            evidence.append(compact[:180])
+    return evidence
 
 
 def _parse_timestamp(value: str) -> datetime:

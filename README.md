@@ -30,6 +30,8 @@ stale cached data.
   the advertised amount.
 - **Evidence extraction:** common `$100`, `100 USD`, `350 USDC`, and `/bounty 100`
   formats are supported, with the matching source lines retained.
+- **Currency-safe scoring:** token-only rewards such as MRG, RTC, BTC, or credits
+  are never displayed as USD without independent conversion evidence.
 - **Competition sensing:** visible `/attempt`, `/claim`, and work-intent comments
   reduce the score.
 - **Explainable decisions:** every score includes positive signals and risk flags.

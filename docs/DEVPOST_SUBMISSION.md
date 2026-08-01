@@ -27,7 +27,8 @@ A developer sends `scan <GitHub issue URL>` to RewardOps through email or Slack.
 The agent:
 
 1. verifies the public GitHub issue live;
-2. extracts explicit reward evidence such as `$100`, `350 USDC`, or `/bounty 100`;
+2. extracts explicit reward evidence such as `$100`, `350 USDC`, or `/bounty 100`,
+   while keeping token-only amounts unconverted rather than pretending they are USD;
 3. counts visible `/attempt`, `/claim`, and work-intent comments;
 4. detects bounty labels, payout mechanics, scope clarity, assignees, locks, age,
    and closed state;
@@ -96,4 +97,3 @@ communication layer while the verification workflow remained a single handler.
 
 - Repository: https://github.com/SmartMenu9872/rewardops-agent
 - Caspian Buildathon: https://caspian.devpost.com/
-
